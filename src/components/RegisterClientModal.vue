@@ -10,18 +10,18 @@
                 <div class="modal-body">
                     <form @submit.prevent="handleAddClients">
                         <div class="form-group mb-3">
-                            <label for="firstName" class="form-label">First Name:</label>
+                            <label for="firstName" class="form-label">Nombre:</label>
                             <input type="text" v-model="form.firstName" class="form-control" required />
                         </div>
                         <div class="form-group mb-3">
-                            <label for="lastName" class="form-label">Last Name:</label>
+                            <label for="lastName" class="form-label">Apellidos:</label>
                             <input type="text" v-model="form.lastName" class="form-control" required />
                         </div>
                         <div class="form-group mb-3">
-                            <label for="identityDocument" class="form-label">Identity Document:</label>
+                            <label for="identityDocument" class="form-label">Documento de identidad:</label>
                             <input type="text" v-model="form.identityDocument" class="form-control" required />
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                        <button type="submit" class="btn btn-primary w-100">Registrar</button>
                     </form>
                 </div>
             </div>
@@ -46,11 +46,11 @@ const modal = ref<HTMLElement | null>(null);
 let bootstrapModal: Modal | null = null;
 const store = useStore()
 
-const form = {
+const form = ref({
     firstName: "",
     lastName: "",
     identityDocument: ""
-}
+});
 
 const closeModal = () => {
     if (bootstrapModal) {
@@ -77,10 +77,11 @@ watch(() => props.open, (newVal) => {
 });
 
 const handleAddClients = async () => {
-    await store.addClients(form)
+    await store.addClients(form.value);
+    form.value.firstName = "";
+    form.value.lastName = "";
+    form.value.identityDocument = "";
     closeModal();
-
-    // console.log("CLIENTS", store.clients)
 }
 
 </script>

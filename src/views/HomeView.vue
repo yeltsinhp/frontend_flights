@@ -1,7 +1,7 @@
 <template>
     <div class="container mt-5">
         <div class="d-flex justify-content-end align-items-center mb-3">
-            <button class="btn btn-primary" @click="openModalRegister">Register Client</button>
+            <button class="btn btn-primary" @click="openModalRegister">Registrar Cliente</button>
         </div>
         <ReservationForm ref="reservationForm" @open="handleOpenSeat" @data="handleDataReservation" />
         <RegisterClientModal :open="showModal" @close="handleCloseModal" />
@@ -25,7 +25,6 @@ const showModal = ref(false);
 const showSeat = ref(false);
 const showPaymentModal = ref(false);
 const clearSelection = ref(false);
-// Referencia al componente ReservationForm
 const reservationForm = ref(null);
 
 const purchaseDetails = ref({
@@ -76,8 +75,7 @@ const handlePayment = (amount: number) => {
     store.payFlight(data);
     showSeat.value = false;
     clearSelection.value = true;
-    // Restablecer el formulario después del pago
-  (reservationForm.value as any).resetForm();
+    (reservationForm.value as any).resetForm();
 };
 
 const handleOpenSeat = () => {

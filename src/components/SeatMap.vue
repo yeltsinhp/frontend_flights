@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header text-center">
-            Select Seat
+            Seleccionar asiento
         </div>
         <div class="card-body">
             <div class="seat-map">
