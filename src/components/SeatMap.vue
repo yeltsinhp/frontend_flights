@@ -18,10 +18,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineEmits, onMounted, watch } from 'vue';
+import { ref, computed, defineEmits, watch } from 'vue';
 import { useStore } from '@/stores/store'
 
-const store = useStore()
+const store = useStore();
 
 const rows = computed(() => {
     const rowCount = Math.ceil(store.seats.length / columns.value);
@@ -36,18 +36,25 @@ const props = defineProps({
     purchaseDetails: {
         type: Object,
         required: true
-    }
+    },
+    clearSelection: Boolean
 });
 
 const emit = defineEmits(['seatSelected']);
 
 watch(props.purchaseDetails, () => {
-    handleListSeats()
+    handleListSeats();
+});
+
+watch(() => props.clearSelection, (newVal) => {
+    if (newVal) {
+        selectedSeat.value = null;
+    }
 });
 
 const handleListSeats = async () => {
-    await store.fetchSeats(props.purchaseDetails.flightId)
-}
+    await store.fetchSeats(props.purchaseDetails.flightId);
+};
 
 const getSeatsForRow = (row: any) => {
     const start = (row - 1) * columns.value;
@@ -73,12 +80,9 @@ const handleSeatClick = async (seat: any) => {
             clientId: props.purchaseDetails.clientId,
             flightId: props.purchaseDetails.flightId,
             seatNumber: (selectedSeat.value as any).seatNumber
-        }
-        const reserveData = await store.reserveFlight(data)
-        props.purchaseDetails.reserveId = reserveData.id
-        // console.log("RESERVE DATA", reserveData)
-        // console.log("SELECT SEAT", data)
-        // console.log("SELECT SEAT 2", props.purchaseDetails)
+        };
+        const reserveData = await store.reserveFlight(data);
+        props.purchaseDetails.reserveId = reserveData.id;
         emit('seatSelected', seat); // Emit the event with the selected seat
     }
 };

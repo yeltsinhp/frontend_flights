@@ -5,26 +5,26 @@
         </div>
         <ReservationForm @open="handleOpenSeat" @data="handleDataReservation" />
         <RegisterClientModal :open="showModal" @close="handleCloseModal" />
-        <SeatMap v-show="showSeat" @seatSelected="handleSeatSelected" :purchaseDetails="purchaseDetails" />
+        <SeatMap v-show="showSeat" @seatSelected="handleSeatSelected" :purchaseDetails="purchaseDetails"
+            :clearSelection="clearSelection" />
         <PaymentModal :open="showPaymentModal" :purchaseDetails="purchaseDetails" @close="handleCloseModal"
             @submitPayment="handlePayment" />
-
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import SeatMap from '@/components/SeatMap.vue'
+import SeatMap from '@/components/SeatMap.vue';
 import ReservationForm from '@/components/ReservationForm.vue';
 import RegisterClientModal from '@/components/RegisterClientModal.vue';
 import PaymentModal from '@/components/PaymentModal.vue';
-import { useStore } from '@/stores/store'
+import { useStore } from '@/stores/store';
 
-const store = useStore()
+const store = useStore();
 const showModal = ref(false);
 const showSeat = ref(false);
 const showPaymentModal = ref(false);
-// const dataClient = ref({})
+const clearSelection = ref(false);
 
 const purchaseDetails = ref({
     clientId: 0,
@@ -50,9 +50,7 @@ const openModalRegister = () => {
 
 const handleSeatSelected = (seat: any) => {
     console.log('Seat selected:', seat);
-    // Update purchase details with the selected seat
     purchaseDetails.value.seatNumber = seat.seatNumber;
-    // console.log("DATA CLIENTS", purchaseDetails.value)
     openPaymentModal();
 };
 
@@ -67,39 +65,36 @@ const openPaymentModal = () => {
 };
 
 const handlePayment = (amount: number) => {
-    // console.log('Payment received:', amount);
     const data = {
         clientId: purchaseDetails.value.clientId,
         reservationId: (purchaseDetails.value as any).reserveId,
         amount: amount,
         flightId: (purchaseDetails.value as any).flightId
-    }
-    // console.log("DATA PAYMENT", data)
-    store.payFlight(data)
+    };
+    store.payFlight(data);
     showSeat.value = false;
-    // Implement the payment processing logic here
+    clearSelection.value = true;
 };
 
 const handleOpenSeat = () => {
     showSeat.value = true;
+    clearSelection.value = false;
 };
 
 const handleDataReservation = (data: any) => {
-    // console.log("DATA RESERVATION", data)
-    purchaseDetails.value.clientId = data.client.id
-    purchaseDetails.value.clientName = data.client.firstName
-    purchaseDetails.value.lastName = data.client.lastName
-    purchaseDetails.value.flightId = data.flight.id
-    purchaseDetails.value.origin = data.flight.origin
-    purchaseDetails.value.destination = data.flight.destination
-    purchaseDetails.value.date = data.date
-    purchaseDetails.value.time = data.time
-    // date: (dataClient.value as any).date,
-    // time: (dataClient.value as any).time,
+    purchaseDetails.value.clientId = data.client.id;
+    purchaseDetails.value.clientName = data.client.firstName;
+    purchaseDetails.value.lastName = data.client.lastName;
+    purchaseDetails.value.flightId = data.flight.id;
+    purchaseDetails.value.origin = data.flight.origin;
+    purchaseDetails.value.destination = data.flight.destination;
+    purchaseDetails.value.date = data.date;
+    purchaseDetails.value.time = data.time;
 };
 
 const handleCloseModal = () => {
     showModal.value = false;
     showPaymentModal.value = false;
+    clearSelection.value = true;
 };
 </script>

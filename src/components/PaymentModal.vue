@@ -18,12 +18,15 @@
                     </form>
                     <h5>Detalles de la compra</h5>
                     <ul class="list-group">
-                        <li class="list-group-item"><strong>Nombre Cliente:</strong> {{ purchaseDetails.clientName }} {{ purchaseDetails.lastName }}</li>
+                        <li class="list-group-item"><strong>Nombre Cliente:</strong> {{ purchaseDetails.clientName }} {{
+                            purchaseDetails.lastName }}</li>
                         <li class="list-group-item"><strong>Origin Vuelo:</strong> {{ purchaseDetails.origin }}</li>
-                        <li class="list-group-item"><strong>Destino Vuelo:</strong> {{ purchaseDetails.destination }}</li>
+                        <li class="list-group-item"><strong>Destino Vuelo:</strong> {{ purchaseDetails.destination }}
+                        </li>
                         <li class="list-group-item"><strong>Fecha:</strong> {{ purchaseDetails.date }}</li>
                         <li class="list-group-item"><strong>Hora:</strong> {{ purchaseDetails.time }}</li>
-                        <li class="list-group-item"><strong>Numero de Asiento:</strong> {{ purchaseDetails.seatNumber }}</li>
+                        <li class="list-group-item"><strong>Numero de Asiento:</strong> {{ purchaseDetails.seatNumber }}
+                        </li>
                     </ul>
                 </div>
             </div>
