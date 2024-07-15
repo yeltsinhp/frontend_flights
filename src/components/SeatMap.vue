@@ -72,9 +72,9 @@ const handleSeatClick = async (seat: any) => {
     }
 
     if (isSelected(seat)) {
-        selectedSeat.value = null; // Deselect the seat if it's already selected
+        selectedSeat.value = null; 
     } else {
-        selectedSeat.value = seat; // Select the new seat
+        selectedSeat.value = seat;
 
         const data = {
             clientId: props.purchaseDetails.clientId,
@@ -83,7 +83,7 @@ const handleSeatClick = async (seat: any) => {
         };
         const reserveData = await store.reserveFlight(data);
         props.purchaseDetails.reserveId = reserveData.id;
-        emit('seatSelected', seat); // Emit the event with the selected seat
+        emit('seatSelected', seat);
     }
 };
 </script>

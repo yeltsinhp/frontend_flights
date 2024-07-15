@@ -53,7 +53,6 @@ const date = ref<string>('');
 const time = ref<string>('');
 const store = useStore()
 
-// Watch for changes in selectedFlightId and update date and time accordingly
 watch(selectedFlightId, (newFlightId) => {
     const selectedFlight = store.flights.find((flight: any) => flight.id === newFlightId);
     if (selectedFlight) {
@@ -76,25 +75,19 @@ const reserveFlight = async () => {
             date: date.value,
             time: time.value,
         };
-        // console.log('Reservation details:', reservationDetails);
         emit('data', reservationDetails)
-        // await store.reserveFlight(reservationDetails)
-        // alert('Reservation successful!');
         emit('open');
     }
 };
 
 const handleListClients = async () => {
     await store.fetchClients()
-    // console.log("CLIENTS", store.clients)
 }
 
 const handleListFlights = async () => {
     await store.fetchFlights()
-    // console.log("CLIENTS", store.clients)
 }
 
-// Método para restablecer el formulario
 const resetForm = () => {
     selectedClientId.value = null;
     selectedFlightId.value = null;

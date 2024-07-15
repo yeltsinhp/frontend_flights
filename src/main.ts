@@ -4,15 +4,15 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router';
+import Toast, { POSITION } from 'vue-toastification';
+import type { PluginOptions } from 'vue-toastification';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Importa Bootstrap JS
 import "bootstrap";
-import Toast, { POSITION } from 'vue-toastification';
-import type { PluginOptions } from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
 
 const options: PluginOptions = {
-  position: POSITION.TOP_RIGHT, // Uso de POSITION.TOP_RIGHT en lugar de 'top-right'
+  position: POSITION.TOP_RIGHT, 
   timeout: 5000,
   closeOnClick: true,
   pauseOnFocusLoss: true,

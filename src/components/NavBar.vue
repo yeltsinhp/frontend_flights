@@ -13,16 +13,6 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <router-link class="nav-link" to="/reserve">Reserve</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/payment">Payment</router-link>
-            </li>
-          </ul>
-        </div> -->
       </div>
     </nav>
   </template>
