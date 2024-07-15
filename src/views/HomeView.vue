@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-end align-items-center mb-3">
             <button class="btn btn-primary" @click="openModalRegister">Register Client</button>
         </div>
-        <ReservationForm @open="handleOpenSeat" @data="handleDataReservation" />
+        <ReservationForm ref="reservationForm" @open="handleOpenSeat" @data="handleDataReservation" />
         <RegisterClientModal :open="showModal" @close="handleCloseModal" />
         <SeatMap v-show="showSeat" @seatSelected="handleSeatSelected" :purchaseDetails="purchaseDetails"
             :clearSelection="clearSelection" />
@@ -25,6 +25,8 @@ const showModal = ref(false);
 const showSeat = ref(false);
 const showPaymentModal = ref(false);
 const clearSelection = ref(false);
+// Referencia al componente ReservationForm
+const reservationForm = ref(null);
 
 const purchaseDetails = ref({
     clientId: 0,
@@ -74,6 +76,8 @@ const handlePayment = (amount: number) => {
     store.payFlight(data);
     showSeat.value = false;
     clearSelection.value = true;
+    // Restablecer el formulario después del pago
+  (reservationForm.value as any).resetForm();
 };
 
 const handleOpenSeat = () => {

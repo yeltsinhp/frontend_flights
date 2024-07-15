@@ -65,7 +65,7 @@ watch(selectedFlightId, (newFlightId) => {
     }
 });
 
-const reserveFlight = async() => {
+const reserveFlight = async () => {
     const selectedClient = store.clients.find((client: any) => client.id === selectedClientId.value);
     const selectedFlight = store.flights.find((flight: any) => flight.id === selectedFlightId.value);
 
@@ -93,6 +93,16 @@ const handleListFlights = async () => {
     await store.fetchFlights()
     // console.log("CLIENTS", store.clients)
 }
+
+// Método para restablecer el formulario
+const resetForm = () => {
+    selectedClientId.value = null;
+    selectedFlightId.value = null;
+    date.value = '';
+    time.value = '';
+};
+
+defineExpose({ resetForm });
 </script>
 
 <style scoped>
